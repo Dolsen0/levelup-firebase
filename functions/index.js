@@ -7,6 +7,8 @@ import { Fun } from './src/components/Fun.js';
 import { Physical } from './src/components/Physical.js';
 import { Mental } from './src/components/Mental.js';
 import { Creative } from './src/components/Creative.js';
+import { UpdatePhysical } from './src/components/UpdatePhysical.js';
+import { CreateFun } from './src/CreateFun.js';
 
 
 
@@ -19,9 +21,16 @@ app.get("/user", User)
 
 
 app.get("/physical", Physical)
-app.get("/mental", Mental)
+app.patch("/physical/:physicalId", UpdatePhysical);
+
+app.get("/mental", Mental) 
+
+
 app.get("/creative", Creative)
+
+
 app.get("/fun", Fun)
+app.post('/fun/funId', CreateFun)
 
 
 export const api = functions.https.onRequest(app)
