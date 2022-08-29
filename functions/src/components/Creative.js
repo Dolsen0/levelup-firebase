@@ -1,3 +1,3 @@
-export function Creative(req,res){
-    res.send("Creative")
-}
+// export function Creative(req,res){
+//     res.send("Creative")
+// }

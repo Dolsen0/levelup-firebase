@@ -11,3 +11,24 @@ export async function getUserInfo(req,res){
     })
     res.send(users)
 }
+
+export async function createNewUser(req, res){
+    const newUser = req.body;
+    if(!newUser || !newUser.user){
+        res.status(400).send( {success: false, message: "invalid" });
+        return;
+    }
+    const db = dbConnect();
+    await db.collection('Users').add('newUser')
+    .catch(err => res.status(500).send(err));
+    res.status(201);
+    getUsers(req, res);
+}
+
+
+export async function updateUserScore(req, res){
+    const scoreUpdate = req.body;
+    const { userId } = req.params;
+    res.send(203).send('Score Updated')
+    console.log("updated")
+}

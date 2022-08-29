@@ -1,3 +1,3 @@
-export function Fun(req,res){
-    res.send("Fun")
-}
+// export function Fun(req,res){
+//     res.send("Fun")
+// }

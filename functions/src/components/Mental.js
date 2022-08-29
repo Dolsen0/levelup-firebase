@@ -1,3 +1,3 @@
-export function Mental(req,res){
-    res.send("Mental")
-}
+// export function Mental(req,res){
+//     res.send("Mental")
+// }

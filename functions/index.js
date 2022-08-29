@@ -1,7 +1,7 @@
 import functions from 'firebase-functions';
 import express from 'express';
 import cors from 'cors';
-import { getUserInfo } from './src/components/userInfo.js';
+import { createNewUser, getUserInfo, updateUserScore } from './src/components/userInfo.js';
 // import { Header } from './src/components/Header.js';
 // import  getUser  from './src/components/getUser.js';
 // import { User } from './src/components/User.js';
@@ -19,8 +19,10 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/user", getUserInfo)
-
+app.get("/", getUserInfo)
+app.get("/updateScore", getUserInfo)
+app.post("/newUser", createNewUser)
+app.patch("/updateScore/:userId", updateUserScore)
 
 
 

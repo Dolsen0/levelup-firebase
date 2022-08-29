@@ -1,3 +1,3 @@
-export function Physical(req,res){
-    res.send("Physical")
-}
+// export function Physical(req,res){
+//     res.send("Physical")
+// }
