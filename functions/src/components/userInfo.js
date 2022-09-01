@@ -1,5 +1,6 @@
 import { dbConnect } from "./dbConnect.js";
 
+//gets all users in db. Used for testing and not necessary to run.
 export async function getAllUserInfo(req,res){
     const db = dbConnect();
     const collection = await db.collection('Users').get()
@@ -11,6 +12,10 @@ export async function getAllUserInfo(req,res){
     })
     res.send(users)
 }
+
+
+// gets individual user info. Needs to authenticate user. 
+// Currently displays first user in DB
 export async function getUserInfo(req,res){
     const db = dbConnect();
     const collection = await db.collection('Users').get()
@@ -23,17 +28,18 @@ export async function getUserInfo(req,res){
     res.send(users[0])
 }
 
+// Post request. New Signup -  creates user. Needs..
 export async function createNewUser(req, res){
     const newUser = req.body;
-    // if(!newUser || !newUser.user){
-    //     res.status(400).send( {success: false, message: "invalid" });
-    //     return;
-    // }
+    
+    // create auth to make sure user has access to email.
+    // if email exists in DB inform user their email is in use.  
+    
     const db = dbConnect();
     await db.collection('Users').add(newUser)
         .catch(err => res.status(500).send(err));
     res.status(201);
-    getUserInfo(req, res);
+    getUserInfo(req, res); //create message to update user they were added.
 }
 
 

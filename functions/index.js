@@ -22,7 +22,7 @@ app.use(express.json());
 app.get("/", getAllUserInfo) // replace getUserInto general page. no user info until logged in.
 app.get("/user", getUserInfo) // after logging into app. Saved user info displays
 app.get("/signup", getAllUserInfo) 
-app.post("/signup", createNewUser)
+app.post("/signup", createNewUser) // creates new user and adds to database.
 app.patch("/updateScore/:userId", updateUserScore)
 
 
