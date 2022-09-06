@@ -28,6 +28,21 @@ export async function getUserInfo(req,res){
     res.send(users[0])
 }
 
+
+//get user score
+
+export async function getUserScore(req,res){
+    const db = dbConnect();
+    const collection = await db.collection('Users').doc('User1').get()
+        .catch(err => res.status(500).send(err));
+    const user = collection.docs.map(doc =>{
+        let userScore = doc.data("score")
+        return userScore
+    })
+    res.send(user)
+}
+
+
 // Post request. New Signup -  creates user. Needs..
 export async function createNewUser(req, res){
     const newUser = req.body;
