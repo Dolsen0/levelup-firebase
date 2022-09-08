@@ -18,14 +18,14 @@ export async function getAllUserInfo(req,res){
 // Currently displays first user in DB
 export async function getUserInfo(req,res){
     const db = dbConnect();
-    const collection = await db.collection('Users').get()
+    const collection = await db.collection('Users').where('email', '==', 'mercuryqueen@queen.com' ).get()
         .catch(err => res.status(500).send(err));
     const users = collection.docs.map(doc =>{
         let user = doc.data();
         user.id = doc.id;
         return user;
     })
-    res.send(users[0])
+    res.send(users)
 }
 
 
@@ -33,13 +33,13 @@ export async function getUserInfo(req,res){
 
 export async function getUserScore(req,res){
     const db = dbConnect();
-    const collection = await db.collection('Users').doc('User1').get()
+    const collection = await db.collection('Users').doc('15d9vJM7UV04Nh2vY2Lx').get()
         .catch(err => res.status(500).send(err));
     const user = collection.docs.map(doc =>{
         let userScore = doc.data("score")
         return userScore
     })
-    res.send(user)
+    res.send(userScore)
 }
 
 
@@ -59,8 +59,15 @@ export async function createNewUser(req, res){
 
 
 export async function updateUserScore(req, res){
-    const scoreUpdate = req.body;
-    const { userId } = req.params;
+    let scoreUpdate = req.body;
+    // const { scoreID } = req.params;
+    const db = dbConnect();
+    await db.collection('Users').doc().add(scoreUpdate)
+        .catch(err => res.status(500).send(err)); 
+    res.status(202);
+    getUserScore(req, res)
+
+
     res.send(203).send('Score Updated')
     console.log("updated")
 }
