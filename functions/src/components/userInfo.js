@@ -18,7 +18,7 @@ export async function getAllUserInfo(req,res){
 // Currently displays first user in DB
 export async function getUserInfo(req,res){
     const db = dbConnect();
-    const collection = await db.collection('Users').where('email', '==', 'mercuryqueen@queen.com' ).get()
+    const collection = await db.collection('Users').where('email', '==', 'whatsgoingon@gmail.com' ).get()
         .catch(err => res.status(500).send(err));
     const users = collection.docs.map(doc =>{
         let user = doc.data();
@@ -33,10 +33,10 @@ export async function getUserInfo(req,res){
 
 export async function getUserScore(req,res){
     const db = dbConnect();
-    const collection = await db.collection('Users').doc('15d9vJM7UV04Nh2vY2Lx').get()
+    const collection = await db.collection('Users').where('email', '==', 'whatsgoingon@gmail.com' ).get()
         .catch(err => res.status(500).send(err));
     const user = collection.docs.map(doc =>{
-        let userScore = doc.data("score")
+        let userScore = doc.data("userScore")
         return userScore
     })
     res.send(userScore)
@@ -55,6 +55,7 @@ export async function createNewUser(req, res){
         .catch(err => res.status(500).send(err));
     res.status(201);
     getUserInfo(req, res); //create message to update user they were added.
+    return 
 }
 
 
@@ -62,7 +63,7 @@ export async function updateUserScore(req, res){
     let scoreUpdate = req.body;
     // const { scoreID } = req.params;
     const db = dbConnect();
-    await db.collection('Users').doc().add(scoreUpdate)
+    await db.collection('Users').where('email', '==', 'whatsgoingon@gmail.com' ).update(scoreUpdate)
         .catch(err => res.status(500).send(err)); 
     res.status(202);
     getUserScore(req, res)
