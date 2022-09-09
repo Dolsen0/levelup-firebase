@@ -15,7 +15,8 @@ app.use(express.json());
 app.get("/", getGoals) // replace getUserInto general page. no user info until logged in.
 
 app.get("/user", getUserInfo) // after logging into app. Saved user info displays
-app.post("/user", updateUserScore)
+// app.patch("/user/", updateUserScore)
+app.patch("/user/:userId", updateUserScore)
 
 // app.get("/userscore", getUserScore) // after logging into app. Saved user info displays
 app.get("/signup", getAllUserInfo) 

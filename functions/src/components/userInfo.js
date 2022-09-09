@@ -25,7 +25,7 @@ export async function getUserInfo(req,res){
         user.id = doc.id;
         return user;
     })
-    res.send(users)
+    res.send(users[0])
 }
 
 
@@ -61,14 +61,15 @@ export async function createNewUser(req, res){
 
 export async function updateUserScore(req, res){
     let scoreUpdate = req.body;
-    // const { scoreID } = req.params;
+    const { userId } = req.params;
     const db = dbConnect();
-    await db.collection('Users').where('email', '==', 'whatsgoingon@gmail.com' ).update(scoreUpdate)
+    await db.collection('Users').doc(userId).update(scoreUpdate)
         .catch(err => res.status(500).send(err)); 
     res.status(202);
-    getUserScore(req, res)
+    // getUserScore(req, res)
 
 
-    res.send(203).send('Score Updated')
+    // res.send(203).send('Score Updated')
     console.log("updated")
+    getUserInfo(req,res);
 }
